@@ -20,7 +20,7 @@ def train_iteration(inputs, targets, model, loss_fn, optimizer):
     optimizer.step()
     return loss
 
-def fit_regression_model(train_inputs, train_targets):
+def fit_regression_model(X, y):
     """
     Train the model for the given number of epochs.
     Hint: use the train_iteration function.
@@ -29,8 +29,10 @@ def fit_regression_model(train_inputs, train_targets):
     """
     learning_rate = 0.01
     num_epochs = 100
-    input_features = train_inputs.shape[1]
-    output_features = train_targets.shape[1]
+
+    # Determine input size based on the first dimension of X
+    input_features = X.shape[1] if len(X.shape) > 1 else 1
+    output_features = y.shape[1]
     model = create_linear_regression_model(input_features, output_features)
 
     loss_fn = nn.MSELoss()
@@ -39,7 +41,7 @@ def fit_regression_model(train_inputs, train_targets):
     previous_loss = float("inf")
 
     for epoch in range(1, num_epochs + 1):
-        loss = train_iteration(train_inputs, train_targets, model, loss_fn, optimizer)
+        loss = train_iteration(X, y, model, loss_fn, optimizer)
         
         # Print loss and predictions for debugging
         if epoch % 10 == 0:
