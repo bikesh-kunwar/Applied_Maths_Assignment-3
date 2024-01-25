@@ -46,8 +46,10 @@ def fit_regression_model(X, y):
         # Print loss and predictions for debugging
         if epoch % 10 == 0:
             print(f'Epoch {epoch}/{num_epochs}, Loss: {loss.item()}')
-            # Assume test_inputs is defined
-            test_inputs = torch.tensor([[20.], [15.], [10.]])
+            # Provide test_inputs with the same shape as the model's input
+            test_inputs = torch.tensor([[20.], [15.], [10.]])  # Adjust this to match the shape of your training data
+            if len(test_inputs.shape) == 1:
+                test_inputs = test_inputs.unsqueeze(1)
             print('Predictions:', model(test_inputs).detach().numpy())
         
         # Change this condition to stop the training when the loss is not changing much.
