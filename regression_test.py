@@ -49,14 +49,14 @@ def get_train_data(dim=1):
          [1297.4000],
          [946.4000],
          [1197.1000]])
+    
     if dim == 1:
-        X = X_2[:, :1]
+        X = X_2[:, :1].reshape(-1, 1)  # Reshape to make it a column vector
     elif dim == 2:
         X = X_2
     else:
         raise ValueError("dim must be 1 or 2")
     return X, y
-
 
 def test_fit_regression_model_1d():
     X, y = get_train_data(dim=1)
